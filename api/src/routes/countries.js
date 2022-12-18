@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const axios = require('axios');
 const router = Router();
-const {Country , Activity} = require('../db')
+const {Op, Country , Activity} = require('../db')
 
 ///// FUNCION PARA TRAER DATOS DE LA API A LA BASE DE DATOS //////
 const getCountry = async () => {
@@ -22,6 +22,7 @@ const getCountry = async () => {
     // console.log("Se lleno la base de datos")
 }
 
+///// RUTA PARA TRAER TODOS LOS PAISES O POR NAME(QUERY) //////
 router.get('/', async (req, res) => {
     const { name } = req.query
     // Me fijo si hay datos en el modelo de la db
@@ -30,34 +31,53 @@ router.get('/', async (req, res) => {
         await getCountry();
     }
     // Busco y traigo los paises que incluyan una actividad
-    const allCountries = await Country.findAll({ include: Activity });
-
-    // Paso el nombre todo a miniscula para no tener errores
-    if(name) {
-        const countryName = await allCountries.filter((e) => {
-            e.name.toLowerCase().includes(name.toLowerCase())
-        })
-
-        if(name.length) {
-            let name2 = await countryName.map((e) => e.name);
-            let pais = await Country.findAll({
-                where: { name: name2 },
-                include: Activity,
-            })
-            console.log(pais)
-            res.status(200).send(pais);
+    if(!name){
+    const allCountries = await Country.findAll({ 
+        include: [{
+            model: Activity,
+            attributes: ['name', 'difficulty', 'duration', 'season'],
+            through: {attributes:[]}
+        }]})
+        res.status(200).send(allCountries)
+    }else {
+        const country = await Country.findAll({
+            where: {
+                name: {[Op.iLike]: `%${name}%`},
+            },
+            include: [{ 
+                model: Activity,
+                attributes: [ 'name', 'difficulty', 'duration', 'season',],
+                through: { attributes: [] }
+            }] 
+        })  
+        if(country) {
+            res.status(200).json(country);
         } else {
-            res.status(404).send("Este pais no existe")
+            res.status(404).send("País no encontrado");
         }
-    } else {
-        res.status(200).send(allCountries);
     }
 })
 
 
+///// RUTA PARA TRAER UN PAIS POR ID(PARAMS) //////
+router.get('/:id', async (req, res) => {
+    const id = req.params.id
 
-
-
-
+    const countryDetail = await Country.findOne({
+        where: {
+            id: {[Op.iLike]: id},
+        },
+        include: [{
+            model: Activity,
+            attributes: [ 'name', 'difficulty', 'duration', 'season',],
+            through: { attributes: [] }
+        }]
+    })
+    if(countryDetail) {
+        res.status(200).send(countryDetail)
+    } else {
+        res.status(404).send("ID no encontrado")
+    }
+})
 
 module.exports = router;
