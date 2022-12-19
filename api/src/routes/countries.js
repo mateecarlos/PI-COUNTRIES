@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
         if(country) {
             res.status(200).json(country);
         } else {
-            res.status(404).send("País no encontrado");
+            res.status(404).send("País no encontrado")
         }
     }
 })
