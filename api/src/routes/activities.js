@@ -4,7 +4,7 @@ const router = Router();
 const { Activity, Country } = require('../db');
 
 
-//// FUNCION PARA TRAER TODAS LAS ACTIVIDADES /////
+//// RUTA PARA TRAER TODAS LAS ACTIVIDADES CREADAS/////
 router.get('/', async (req, res) => {
     try {
         const getAllActivities = await Activity.findAll({
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-
+//// RUTA PARA CREAR LAS ACTIVIDADES ////
 router.post('/', async (req, res) => {
     const { name, difficulty, duration, season, countries } = req.body;
     try {

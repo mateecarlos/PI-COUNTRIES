@@ -40,9 +40,10 @@ router.get('/', async (req, res) => {
         }]})
         res.status(200).send(allCountries)
     }else {
+        // Busco que el pais pasado por query que tenga las actividades
         const country = await Country.findAll({
             where: {
-                name: {[Op.iLike]: `%${name}%`},
+                name: {[Op.iLike]: `%${name}%`}, //Deja que en query se pase mayuscula o minuscula y sea substring
             },
             include: [{ 
                 model: Activity,
@@ -65,7 +66,7 @@ router.get('/:id', async (req, res) => {
 
     const countryDetail = await Country.findOne({
         where: {
-            id: {[Op.iLike]: id},
+            id: {[Op.iLike]: id}, // Deja que el id pasado por params sea en minusula o mayusucla
         },
         include: [{
             model: Activity,
