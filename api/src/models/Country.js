@@ -36,6 +36,6 @@ module.exports = (sequelize) => {
     population: {
       type: DataTypes.INTEGER,
       allowNull: true,
-    }
+    },
   });
 };
