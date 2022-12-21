@@ -21,20 +21,20 @@ export default function Home () {
 
     return (
         <div>
-            <Link to= '/create'>Crear countries</Link>
+            <Link to= '/create'>Crear actividades</Link>
             <h1> PAGINA DE PAISES </h1>
             <button onClick={e => {handleRecargar(e)}}>
                 Recargar paises
             </button>
             <div>
                 <select>
-                    <option value = 'asc'>ASCENDENTE</option>
-                    <option value = 'desc'>DESCEDENTE</option>
-                    <option value = 'popa'>POBLACION ASC</option>
-                    <option value = 'popd'>POBLACION DES</option>
+                    <option value = 'asc'>Ascendente</option>
+                    <option value = 'desc'>Descendente</option>
+                    <option value = 'popa'>Poblacion ASC</option>
+                    <option value = 'popd'>Poblacion DES</option>
                 </select>
                 <select>
-                    <option value = 'all'>Mundo</option>
+                    <option value = 'all'>Todos</option>
                     <option value = 'Asia'>Asia</option>
                     <option value = 'Americas'>Americas</option>
                     <option value = 'Africa'>Africa</option>
@@ -48,11 +48,9 @@ export default function Home () {
                 {
                     allCountries?.map( (el) => {
                         return( 
-                    <Fragment>
                         <Link to = {'/details' + el.id}>
                         <Card name={el.name} continents={el.continents} flag={el.flags} key={el.id}/>
                         </Link>
-                    </Fragment>
                         )
                     })
                 }
