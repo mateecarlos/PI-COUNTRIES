@@ -7,11 +7,10 @@ function App() {
   return (
     <BrowserRouter>
     <div className="App">
-      <switch>
+      <Switch>
         <Route exact path= '/' component= {LandingPage} />
         <Route exact path= '/home' component = {Home} />
-      </switch>
-      <h1>Henry Countries</h1>
+      </Switch>
     </div>
     </BrowserRouter>
   );

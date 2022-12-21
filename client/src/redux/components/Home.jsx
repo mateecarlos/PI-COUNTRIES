@@ -12,7 +12,7 @@ export default function Home () {
 
     useEffect (() =>{
         dispatch(getCountries())
-    },[])
+    },[dispatch])
 
     function handleRecargar(e){
         e.preventDefault();
@@ -50,7 +50,7 @@ export default function Home () {
                         return( 
                     <Fragment>
                         <Link to = {'/details' + el.id}>
-                        <Card name={el.name} continents={el.continents} flag={el.flag} key={el.id}/>
+                        <Card name={el.name} continents={el.continents} flag={el.flags} key={el.id}/>
                         </Link>
                     </Fragment>
                         )
