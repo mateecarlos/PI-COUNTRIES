@@ -1,7 +1,6 @@
 const initialState = {
     countries : [],
     allCountries: [],
-    activities: [],
 }
 
 function rootReducer (state = initialState, action) {
@@ -24,25 +23,55 @@ function rootReducer (state = initialState, action) {
                 countries: filtro,
             }
 
-        // case 'GET_ACTIVITIES':
-        //     return {
-        //         ...state,
-        //         activities: action.payload
-        //     }
+        case 'ORDER_BY_NAME':
+            const sortname = action.payload === 'asc'
+            ? state.countries.sort(function (a, b) {
+                if(a.name > b.name) {
+                    return 1;
+                }
+                if(a.name < b.name) {
+                    return -1;
+                }
+                return 0;
+            }) 
+            : state.countries.sort(function (a,b) {
+                if(a.name > b.name) {
+                    return -1;
+                }
+                if(a.name < b.name) {
+                    return 1;
+                }
+                return 0;
+            })
+            return {
+                ...state,
+                countries: sortname
+            }
 
-        // case 'BY_ACTIVITY':
-        //     const copia = state.allCountries;
-        //     const actividad = state.activities;
-        //     const filtroByActivity = 
-        //     action.payload === 'All'
-        //     ? copia
-        //     : actividad
-        //     .filter((a) => a.name === action.payload)[0]
-        //     .countries.map((e) => e);
-        //     return {
-        //         ...state,
-        //         countries: filtroByActivity
-        //     }
+        case 'ORDER_BY_POPULATION':
+            const sortpop = action.payload === 'pop'
+            ? state.countries.sort(function (a, b) {
+                if(a.population > b.population) {
+                    return -1;
+                }
+                if(a.population < b.population) {
+                    return 1;
+                }
+                return 0;
+            })
+            : state.countries.sort(function (a, b) {
+                if(a.population > b.population) {
+                    return 1;
+                }
+                if(a.population < b.population) {
+                    return -1;
+                }
+                return 0;
+            })
+            return {
+                ...state,
+                countries: sortpop
+            }
 
         default:
             return state;

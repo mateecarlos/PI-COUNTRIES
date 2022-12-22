@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getActivities, getContinent, getCountries, byActivity } from "../actions";
+import { getContinent, getCountries, orderByName, orderByPopulation, } from "../actions";
 import { Link } from "react-router-dom";
 import Card from './Card'
 
@@ -9,15 +9,12 @@ export default function Home () {
 
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries)
-    // const activities = useSelector((state) => state.activities )
+    const [orden, setOrden] = useState('')
 
     useEffect (() =>{
         dispatch(getCountries())
     },[dispatch])
 
-    // useEffect(() => {
-    //     dispatch(getActivities())
-    // }, [dispatch])
 
     function handleRecargar(e){
         e.preventDefault();
@@ -28,25 +25,36 @@ export default function Home () {
         dispatch(getContinent(e.target.value))
     }
 
-    // function handleByActivity(e) {
-    //     e.preventDefault();
-    //     dispatch(byActivity(e.target.value))
-    // }
+    function handleSortName(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value))
+        setOrden(`Orden ${e.target.value}`)
+    }
+
+    function handleSortPop(e){
+        e.preventDefault();
+        dispatch(orderByPopulation(e.target.value))
+        setOrden(`Orden ${e.target.value}`)
+    }
+
 
     return (
         <div>
-            <Link to= '/create'>Crear actividades</Link>
+            <button Link to= '/create'>Crear actividades</button>
             <h1> PAGINA DE PAISES </h1>
+
             <button onClick={e => {handleRecargar(e)}}>
                 Recargar paises
             </button>
+
             <div>
-                <select>
-                    <option value = 'asc'>Ascendente</option>
-                    <option value = 'desc'>Descendente</option>
-                    <option value = 'popa'>Poblacion ASC</option>
-                    <option value = 'popd'>Poblacion DES</option>
-                </select>
+                <div>
+                    <button value = 'asc' onClick={e => handleSortName(e)}>A-Z</button>
+                    <button value = 'desc' onClick={e => handleSortName(e)}>Z-A</button>
+                    <button value = 'pop' onClick={e => handleSortPop(e)}>Poblacion ↓</button>
+                    <button value = 'popd' onClick={e => handleSortPop(e)}>Poblacion ↑</button>
+                </div>
+
                 <select onChange={e => handleByContinent(e)}>
                     <option value = 'all'>Todo el mundo</option>
                     <option value = 'Asia'>Asia</option>
@@ -56,16 +64,9 @@ export default function Home () {
                     <option value = 'Europe'>Europa</option>
                     <option value = 'Oceania'>Oceania</option>
                 </select>
-                {/* <select onChange={(e) => handleByActivity(e)}> */}
+
                 <select>
                     <option value = 'All'>Actividades</option>
-                    {/* {
-                        activities.map((el) => {
-                            return(
-                                <option key={el.id} value={el.name}>{el.name}</option>
-                            )
-                        })
-                    } */}
                 </select>
                 {
                     allCountries?.map( (el) => {

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Card ({ name, flag, continents }) {
+export default function Card ({ name, flag, continents, population}) {
     return (
         <div>
             <img src={flag} alt='notFound' width='250px' height='150px'/>

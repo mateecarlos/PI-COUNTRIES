@@ -18,19 +18,16 @@ export function getContinent(payload){
     }
 }
 
-// export function getActivities(){
-//     return async function(dispatch) {
-//         var json = await axios.get("http://localhost:3001/activities")
-//         return dispatch({
-//             type: 'GET_ACTIVITIES',
-//             payload: json.data
-//         })
-//     }
-// }
+export function orderByName(payload) {
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}
 
-// export function byActivity(payload){
-//     return {
-//         type: 'BY_ACTIVITY',
-//         payload
-//     }
-// }
+export function orderByPopulation(payload) {
+    return {
+        type: 'ORDER_BY_POPULATION',
+        payload
+    }
+}
