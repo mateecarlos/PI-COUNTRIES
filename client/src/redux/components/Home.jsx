@@ -56,7 +56,7 @@ export default function Home () {
                 </div>
 
                 <select onChange={e => handleByContinent(e)}>
-                    <option value = 'all'>Todo el mundo</option>
+                    <option value = 'all'>Todos</option>
                     <option value = 'Asia'>Asia</option>
                     <option value = 'Americas'>Americas</option>
                     <option value = 'Africa'>Africa</option>
@@ -66,7 +66,7 @@ export default function Home () {
                 </select>
 
                 <select>
-                    <option value = 'All'>Actividades</option>
+                    <option value = 'All'>Todas</option>
                 </select>
                 {
                     allCountries?.map( (el) => {
