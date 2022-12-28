@@ -4,12 +4,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { getContinent, getCountries, orderByName, orderByPopulation, } from "../actions";
 import { Link } from "react-router-dom";
 import Card from './Card'
+import Paginado from "./Paginado";
 
 export default function Home () {
 
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries)
     const [orden, setOrden] = useState('')
+    const [currentPage, setCurrentPage] = useState(1) //La pagina empieza en la 1
+    const [countriesPerPage, setCountriesPerPage] = useState(10) //La pagina tiene 10 x Pagina
+    const indexOfLastCountry = currentPage * countriesPerPage // ultimo countri en 10 (1 x 10)
+    const indexOfFirstCountry =  indexOfLastCountry - countriesPerPage //// primer countri en 0 (10 - 10)
+    const currentCountry = allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
+
+    const paginado = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    }
+
 
     useEffect (() =>{
         dispatch(getCountries())
@@ -28,12 +39,14 @@ export default function Home () {
     function handleSortName(e){
         e.preventDefault();
         dispatch(orderByName(e.target.value))
+        setCurrentPage(1)
         setOrden(`Orden ${e.target.value}`)
     }
 
     function handleSortPop(e){
         e.preventDefault();
         dispatch(orderByPopulation(e.target.value))
+        setCurrentPage(1)
         setOrden(`Orden ${e.target.value}`)
     }
 
@@ -68,8 +81,10 @@ export default function Home () {
                 <select>
                     <option value = 'All'>Todas</option>
                 </select>
+
+
                 {
-                    allCountries?.map( (el) => {
+                    currentCountry?.map( (el) => {
                         return( 
                         <Link to = {'/details' + el.id}>
                         <Card name={el.name} continents={el.continents} flag={el.flags} key={el.id}/>
@@ -77,6 +92,13 @@ export default function Home () {
                         )
                     })
                 }
+
+                <div>
+                <Paginado 
+                countriesPerPage={countriesPerPage} 
+                allCountries={allCountries.length} 
+                paginado={paginado}/>
+                </div>
             </div>
         </div>
     )
