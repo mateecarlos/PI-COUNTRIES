@@ -5,6 +5,7 @@ import { getContinent, getCountries, orderByName, orderByPopulation, } from "../
 import { Link } from "react-router-dom";
 import Card from './Card'
 import Paginado from "./Paginado";
+import SearchBar from "./SearchBar";
 
 export default function Home () {
 
@@ -56,6 +57,10 @@ export default function Home () {
             <button Link to= '/create'>Crear actividades</button>
             <h1> PAGINA DE PAISES </h1>
 
+
+            <div>
+                <SearchBar/>
+            </div>
             <button onClick={e => {handleRecargar(e)}}>
                 Recargar paises
             </button>

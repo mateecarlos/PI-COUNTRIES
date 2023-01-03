@@ -12,6 +12,12 @@ function rootReducer (state = initialState, action) {
                 allCountries: action.payload
             }
 
+        case 'GET_NAME_COUNTRY':
+            return {
+                ...state,
+                countries: action.payload,
+            }
+
         case 'GET_CONTINENT':
             const mundo = state.allCountries;
             const filtro = 

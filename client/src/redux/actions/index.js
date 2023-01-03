@@ -1,6 +1,17 @@
 import axios from 'axios'
 
 
+export function getSearchName(name) {
+    return async function(dispatch) {
+        var res = await axios.get(`http://localhost:3001/countries?name=${name}`)
+        return dispatch({
+            type: 'GET_NAME_COUNTRY',   
+            payload: res.data
+        })
+    } 
+}
+
+
 export function getCountries(){
     return async function(dispatch) {
         var json = await axios.get ("http://localhost:3001/countries")
