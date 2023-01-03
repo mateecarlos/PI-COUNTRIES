@@ -12,6 +12,26 @@ function rootReducer (state = initialState, action) {
                 allCountries: action.payload
             }
 
+        case "GET_ACTIVITIES":
+        return {
+            ...state,
+            activities: action.payload,
+                };
+
+        case "BY_ACTIVITY":
+            const copia = state.allCountries;
+            const acti = state.activities;
+            const filterByActivity =
+                action.payload === "All"
+                    ? copia
+                    : acti
+                        .filter((a) => a.name === action.payload)[0]
+                        .countries.map((e) => e);
+            return {
+                ...state,
+                countries: filterByActivity,
+                };
+
         case 'GET_NAME_COUNTRY':
             return {
                 ...state,

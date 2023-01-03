@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getContinent, getCountries, orderByName, orderByPopulation, } from "../actions";
+import { getContinent, getCountries, orderByName, orderByPopulation, getAllActivities, byActivity } from "../actions";
 import { Link } from "react-router-dom";
 import Card from './Card'
 import Paginado from "./Paginado";
@@ -11,6 +11,7 @@ export default function Home () {
 
     const dispatch = useDispatch();
     const allCountries = useSelector((state) => state.countries)
+    const activities = useSelector((state) => state.activities)
     const [orden, setOrden] = useState('')
     const [currentPage, setCurrentPage] = useState(1) //La pagina empieza en la 1
     const [countriesPerPage, setCountriesPerPage] = useState(10) //La pagina tiene 10 x Pagina
@@ -22,9 +23,12 @@ export default function Home () {
         setCurrentPage(pageNumber)
     }
 
-
     useEffect (() =>{
         dispatch(getCountries())
+    },[dispatch])
+
+    useEffect(() => {
+        dispatch(getAllActivities())
     },[dispatch])
 
 
@@ -35,6 +39,11 @@ export default function Home () {
 
     function handleByContinent(e){
         dispatch(getContinent(e.target.value))
+    }
+
+    function handleByActivity(e){
+        e.preventDefault();
+        dispatch(byActivity(e.target.value))
     }
 
     function handleSortName(e){
@@ -83,9 +92,16 @@ export default function Home () {
                     <option value = 'Oceania'>Oceania</option>
                 </select>
 
-                <select>
-                    <option value = 'All'>Todas</option>
-                </select>
+                <select onChange={(e) => handleByActivity(e)}>
+                        <option value='All'>Actividades</option>
+                        {/* {
+                            activities.map((el)=> {
+                                return (
+                                    <option key={el.id} value={el.name}>{el.name}</option>
+                                )
+                            }) */}
+                        {/* }  */}
+                    </select>
 
 
                 {
