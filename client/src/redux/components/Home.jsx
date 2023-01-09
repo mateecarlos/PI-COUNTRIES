@@ -82,6 +82,7 @@ export default function Home () {
                     <button value = 'popd' onClick={e => handleSortPop(e)}>Poblacion ↑</button>
                 </div>
 
+                <div>
                 <select onChange={e => handleByContinent(e)}>
                     <option value = 'all'>Todos</option>
                     <option value = 'Asia'>Asia</option>
@@ -91,28 +92,43 @@ export default function Home () {
                     <option value = 'Europe'>Europa</option>
                     <option value = 'Oceania'>Oceania</option>
                 </select>
+                </div>
 
+                <div>
                 <select onChange={(e) => handleByActivity(e)}>
                         <option value='All'>Actividades</option>
-                        {/* {
-                            activities.map((el)=> {
+                        {
+                            activities.map((e)=> {
                                 return (
-                                    <option key={el.id} value={el.name}>{el.name}</option>
+                                    <option key={e.id} value={e.name}>{e.name}</option>
                                 )
-                            }) */}
-                        {/* }  */}
-                    </select>
+                            })}
+                </select>
+                </div>
 
-
-                {
-                    currentCountry?.map( (el) => {
-                        return( 
-                        <Link to = {'/details' + el.id}>
-                        <Card name={el.name} continents={el.continents} flag={el.flags} key={el.id}/>
-                        </Link>
-                        )
-                    })
-                }
+                <div>
+                    {
+                        currentCountry ? currentCountry.map((el) => {
+                            return (
+                                <div key={el.id}>
+                                    <Link to={'/details/' + el.id}>
+                                        <Card name={el.name} flag={el.flags} continents={el.continents} key={el.id}/>
+                                    </Link>
+                                </div>
+                            )
+                        }) :
+                        <div>
+                            <Link to={'/details/' + allCountries.id}>
+                                <Card 
+                                    name={allCountries.name}
+                                    flag={allCountries.flag} 
+                                    continents={allCountries.continents} 
+                                    key={allCountries.id}>
+                                </Card>
+                            </Link>
+                        </div>
+                    }
+                </div>
 
                 <div>
                 <Paginado 

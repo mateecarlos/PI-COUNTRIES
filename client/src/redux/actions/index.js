@@ -58,3 +58,13 @@ export function orderByPopulation(payload) {
         payload
     }
 }
+
+export function getDetails(id) {
+    return async function (dispatch) {
+        const res = await axios.get(`http://localhost:3001/countries/${id}`)
+        return dispatch ({
+            type: 'GET_DETAILS',
+            payload: res.data
+        })
+    }
+}

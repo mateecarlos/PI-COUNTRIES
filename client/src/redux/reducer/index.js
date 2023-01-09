@@ -1,6 +1,8 @@
 const initialState = {
     countries : [],
     allCountries: [],
+    activities: [],
+    detail: [],
 }
 
 function rootReducer (state = initialState, action) {
@@ -98,6 +100,12 @@ function rootReducer (state = initialState, action) {
                 ...state,
                 countries: sortpop
             }
+
+        case 'GET_DETAILS':
+        return {
+            ...state,
+            detail: action.payload
+        }
 
         default:
             return state;
