@@ -18,7 +18,7 @@ export default function GetDetailsCountry(props){
         <div>
             {
                 myCountry ?
-                <div>
+                <div key={myCountry.id}>
                     <img src={myCountry.flags} alt='country'/>
                     <h1>{myCountry.name}</h1>
                     <div>
@@ -37,11 +37,11 @@ export default function GetDetailsCountry(props){
                                 myCountry.activities && myCountry.activities.length ?
                                 myCountry.activities.map(e => {
                                     return (
-                                            <div>
+                                            <div key={e.id}>
                                                 <h4>{e.name}</h4>
                                                 <p>Dificultad: {e.difficulty}</p>
                                                 <p>Duración: {e.duration} horas</p>
-                                                <p >Temporada: {e.season}</p>
+                                                <p>Temporada: {e.season}</p>
                                             </div>
                                             
                                         ) 

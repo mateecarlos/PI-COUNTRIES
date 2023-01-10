@@ -10,6 +10,20 @@ router.get('/', async (req, res) => {
         const getAllActivities = await Activity.findAll({
             inlude: Country,
         })
+        // if(getAllActivities.length) {
+        //     getAllActivities = getAllActivities.map((e) => {
+        //         return {
+        //             id: e.id,
+        //             name: e.name,
+        //             difficulty: e.difficulty,
+        //             duration: e.duration,
+        //             season: e.season,
+        //             countries: e.countries.length? e.countries.map((e) => {
+        //                 e.name
+        //             }) : "No se encontro el pais"
+        //         }
+        //     })
+        // }
         res.status(200).send(getAllActivities);
     } catch(error) {
         res.status(404).send("No se encontraron activdades");

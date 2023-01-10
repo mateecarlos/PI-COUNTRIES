@@ -60,7 +60,7 @@ export default function Home () {
         setOrden(`Orden ${e.target.value}`)
     }
 
-
+    console.log(activities)
     return (
         <div>
             <Link to='/create'><button>Crear actividades</button></Link>
@@ -99,7 +99,7 @@ export default function Home () {
                 <select onChange={e => handleByActivity(e)}>
                         <option value='All' selected disabled>Filtrar por actividades</option>
                         {
-                            activities.map((e)=> {
+                            activities?.map((e)=> {
                                 return (
                                     <option key={e.id} value={e.name}>{e.name}</option>
                                 )

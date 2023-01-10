@@ -22,17 +22,28 @@ function rootReducer (state = initialState, action) {
 
         case "BY_ACTIVITY":
             const copia = state.allCountries;
-            const acti = state.activities;
-            const filterByActivity =
-                action.payload === "All"
-                    ? copia
-                    : acti
-                        .filter((a) => a.name === action.payload)[0]
-                        .countries.map((e) => e);
+            let acti = state.activities;
+            console.log(acti,"aaaaaaa")
+            // const filterByActivity =
+            //     action.payload === "All"
+            //         ? copia
+            //         : acti
+            //             .filter((a) => a.name === action.payload)[0]
+            //             .countries.map((e) => e);
+            const filterByActivity = 
+            acti.length && action.payload === "All"
+            ? copia.filter((e) => e.activities.length > 0)
+            : copia.filter((e) => e.activities.find((a) => a.name === action.payload))
+            if(filterByActivity.length) {
             return {
                 ...state,
                 countries: filterByActivity,
                 };
+            } 
+            return {
+                ...state,
+                countries: copia
+            }
 
         case 'GET_NAME_COUNTRY':
             return {
