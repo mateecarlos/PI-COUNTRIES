@@ -63,7 +63,7 @@ export default function Home () {
 
     return (
         <div>
-            <button Link to= '/create'>Crear actividades</button>
+            <Link to='/create'><button>Crear actividades</button></Link>
             <h1> PAGINA DE PAISES </h1>
 
 
@@ -84,6 +84,7 @@ export default function Home () {
 
                 <div>
                 <select onChange={e => handleByContinent(e)}>
+                    <option value = "" selected disabled>Filtrar por continente</option>
                     <option value = 'all'>Todos</option>
                     <option value = 'Asia'>Asia</option>
                     <option value = 'Americas'>Americas</option>
@@ -96,7 +97,7 @@ export default function Home () {
 
                 <div>
                 <select onChange={e => handleByActivity(e)}>
-                        <option value='All'>Actividades</option>
+                        <option value='All' selected disabled>Filtrar por actividades</option>
                         {
                             activities.map((e)=> {
                                 return (

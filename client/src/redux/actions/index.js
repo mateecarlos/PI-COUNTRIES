@@ -68,3 +68,13 @@ export function getDetails(id) {
         })
     }
 }
+
+export function postActivity(payload) {
+    return async function(dispatch) {
+        const res = await axios.post("http://localhost:3001/activities",payload);
+        return dispatch({
+            type: 'CREATE_ACTIVITY',
+            payload: res.data,
+        })
+    }
+}

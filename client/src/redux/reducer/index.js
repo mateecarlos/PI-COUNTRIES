@@ -107,6 +107,11 @@ function rootReducer (state = initialState, action) {
             detail: action.payload
         }
 
+        case 'CREATE_ACTIVITY':
+            return {
+                ...state,
+            }
+
         default:
             return state;
     }
