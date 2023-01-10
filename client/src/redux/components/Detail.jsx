@@ -29,13 +29,13 @@ export default function GetDetailsCountry(props){
                             <h4>Subregion: {myCountry.subregion}</h4>
                             <h4>Area: {myCountry.area}</h4>
                             <h4>Población: {myCountry.population}</h4>
-                            <Link to= '/home' ><button>Return</button></Link>
+                            <Link to= '/home' ><button>Volver</button></Link>
                         </div> 
                         <div>
                             <h3>ACTIVIDADES DEL PAIS</h3>
                             {
-                                myCountry.Activity && myCountry.Activity.length ?
-                                myCountry.Activity.map(e => {
+                                myCountry.activities && myCountry.activities.length ?
+                                myCountry.activities.map(e => {
                                     return (
                                             <div>
                                                 <h4>{e.name}</h4>

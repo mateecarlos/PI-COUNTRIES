@@ -95,7 +95,7 @@ export default function Home () {
                 </div>
 
                 <div>
-                <select onChange={(e) => handleByActivity(e)}>
+                <select onChange={e => handleByActivity(e)}>
                         <option value='All'>Actividades</option>
                         {
                             activities.map((e)=> {
