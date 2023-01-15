@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getSearchName } from "../actions";
 
-export default function SearchBar() {
+export default function SearchBar({setCurrentPage}) {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
 
@@ -15,6 +15,7 @@ export default function SearchBar() {
     function handleSubmit(e) {
         e.preventDefault()
         dispatch(getSearchName(name))
+        setCurrentPage(1)
     }
 
 

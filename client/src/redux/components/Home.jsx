@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Card from './Card'
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
+import styles from "./modules/home.module.css"
 
 export default function Home () {
 
@@ -63,18 +64,28 @@ export default function Home () {
     console.log(activities)
     return (
         <div>
-            <Link to='/create'><button>Crear actividades</button></Link>
-            <h1> PAGINA DE PAISES </h1>
 
-
-            <div>
-                <SearchBar/>
-            </div>
+            {/*  //////////// TITULO Y RECARGAR ////////////  */}
+            <h1> COUNTRIES </h1>
             <button onClick={e => {handleRecargar(e)}}>
                 Recargar paises
             </button>
 
+            {/*  //////////// CREAR ACTIVIDADES ////////////  */}
             <div>
+                <Link to='/create'><button>Crear actividades</button></Link>
+            </div>
+
+            {/*  //////////// NAV ////////////  */}
+            <nav>
+                {/*  //////////// BUSCADOR ////////////  */}
+                <div>
+                    <SearchBar
+                    setCurrentPage={setCurrentPage}
+                    />
+                </div>
+
+                {/*  //////////// FILTRO POBLACION ////////////  */}
                 <div>
                     <button value = 'asc' onClick={e => handleSortName(e)}>A-Z</button>
                     <button value = 'desc' onClick={e => handleSortName(e)}>Z-A</button>
@@ -82,6 +93,7 @@ export default function Home () {
                     <button value = 'popd' onClick={e => handleSortPop(e)}>Poblacion ↑</button>
                 </div>
 
+                {/*  //////////// FILTRO CONTINENTE ////////////  */}
                 <div>
                 <select onChange={e => handleByContinent(e)}>
                     <option value = "" selected disabled>Filtrar por continente</option>
@@ -95,7 +107,7 @@ export default function Home () {
                 </select>
                 </div>
 
-                <div>
+                {/*  //////////// FILTRO ACTIVIDADES ////////////  */}
                 <select onChange={e => handleByActivity(e)}>
                         <option value='All' selected disabled>Filtrar por actividades</option>
                         {
@@ -105,15 +117,20 @@ export default function Home () {
                                 )
                             })}
                 </select>
-                </div>
+            </nav>
 
+                {/*  //////////// PAISES ////////////  */}
                 <div>
                     {
                         currentCountry ? currentCountry.map((el) => {
                             return (
                                 <div key={el.id}>
                                     <Link to={'/details/' + el.id}>
-                                        <Card name={el.name} flag={el.flags} continents={el.continents} key={el.id}/>
+                                        <Card 
+                                        name={el.name} 
+                                        flag={el.flags} 
+                                        continents={el.continents} 
+                                        key={el.id}/>
                                     </Link>
                                 </div>
                             )
@@ -130,14 +147,14 @@ export default function Home () {
                         </div>
                     }
                 </div>
-
+                
+                {/*  //////////// PAGINADO ////////////  */}
                 <div>
                 <Paginado 
                 countriesPerPage={countriesPerPage} 
                 allCountries={allCountries.length} 
                 paginado={paginado}/>
                 </div>
-            </div>
         </div>
     )
 }
