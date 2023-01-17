@@ -88,7 +88,6 @@ export function CreateActivity(){
         })
     }
 
-
     useEffect(() => {
         dispatch(getCountries())
     }, [dispatch])
@@ -134,10 +133,10 @@ export function CreateActivity(){
                     id="season"
                     onChange={(e) => handleSelect(e)} >
                         <option value="" selected disabled>Season</option>
-                        <option>Summer🌞</option>
-                        <option>Autumn🍂</option>
-                        <option>Winter❄️</option>
-                        <option>Spring🌱</option>
+                        <option>Summer</option>
+                        <option>Autumn</option>
+                        <option>Winter</option>
+                        <option>Spring</option>
                     </select>
                     {errors.season && (<p className={styles.error4}>{errors.season}</p>)}
                 </div>
@@ -160,7 +159,7 @@ export function CreateActivity(){
             <div className={styles.contenedorr}>
             {input.countries.map(e =>
                 <div className={styles.agregados}>
-                    <button className={styles.eliminar} onClick={()=> handleDelete}>X</button>
+                    <button className={styles.eliminar} onClick={()=> handleDelete(e)}>X</button>
                     <p className={styles.code}>{e}</p>
                 </div>)}
             </div>

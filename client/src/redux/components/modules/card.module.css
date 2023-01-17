@@ -16,6 +16,7 @@
     backdrop-filter: blur(10px);
 }
 
+
 .container:hover {
     border-color: rgb(0, 0, 0);
     color: #000000;
@@ -41,11 +42,16 @@
     text-decoration: none;
 }
 
+
 .name{
 color: black;
 font-size: 100%;
 font-family: 'Open Sans Condensed', sans-serif;
 text-decoration: none;
+}
+
+.name h4 {
+    color: aqua;
 }
 
 .continent {

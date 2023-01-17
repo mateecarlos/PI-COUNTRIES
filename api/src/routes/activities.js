@@ -33,6 +33,7 @@ router.get('/', async (req, res) => {
 //// RUTA PARA CREAR LAS ACTIVIDADES ////
 router.post('/', async (req, res) => {
     const { name, difficulty, duration, season, countries } = req.body;
+    console.log(req.body)
     try {
         const createActivity = await Activity.create({
             name,
@@ -43,12 +44,12 @@ router.post('/', async (req, res) => {
 
         const findAcivity = await Country.findAll({
             where: {
-                name: countries,
+                id: countries,
             }
         });
 
-        createActivity.addCountries(findAcivity);
-        res.status(200).send("La actividad ha sido creada con exito")
+        const resultado = createActivity.addCountries(findAcivity);
+        res.status(200).send(resultado)
     } catch(error) {
         res.status(404).send("Los datos son incorrectos")
     }
