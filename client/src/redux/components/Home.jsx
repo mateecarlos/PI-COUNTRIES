@@ -36,15 +36,18 @@ export default function Home () {
     function handleRecargar(e){
         e.preventDefault();
         dispatch(getCountries());
+        setCurrentPage(1)
     }
 
     function handleByContinent(e){
         dispatch(getContinent(e.target.value))
+        setCurrentPage(1)
     }
 
     function handleByActivity(e){
         e.preventDefault();
         dispatch(byActivity(e.target.value))
+        setCurrentPage(1)
     }
 
     function handleSortName(e){
@@ -63,41 +66,45 @@ export default function Home () {
 
     console.log(activities)
     return (
-        <div>
+        <div className={styles.container}>
 
             {/*  //////////// TITULO Y RECARGAR ////////////  */}
-            <h1> COUNTRIES </h1>
-            <button onClick={e => {handleRecargar(e)}}>
-                Recargar paises
-            </button>
+                <h1 className={styles.title}> COUNTRIES </h1>
+            <div className={styles.primeros}>
+                <button className={styles.recargar} onClick={e => {handleRecargar(e)}}>
+                    Reload Countries
+                </button>
 
-            {/*  //////////// CREAR ACTIVIDADES ////////////  */}
-            <div>
-                <Link to='/create'><button>Crear actividades</button></Link>
-            </div>
-
-            {/*  //////////// NAV ////////////  */}
-            <nav>
                 {/*  //////////// BUSCADOR ////////////  */}
-                <div>
+                <div className={styles.buscador}>
                     <SearchBar
                     setCurrentPage={setCurrentPage}
                     />
                 </div>
 
-                {/*  //////////// FILTRO POBLACION ////////////  */}
+            {/*  //////////// CREAR ACTIVIDADES ////////////  */}
                 <div>
-                    <button value = 'asc' onClick={e => handleSortName(e)}>A-Z</button>
-                    <button value = 'desc' onClick={e => handleSortName(e)}>Z-A</button>
-                    <button value = 'pop' onClick={e => handleSortPop(e)}>Poblacion ↓</button>
-                    <button value = 'popd' onClick={e => handleSortPop(e)}>Poblacion ↑</button>
+                    <Link to='/create'><button className={styles.create}>Create Activity</button></Link>
+                </div>
+            </div>
+            
+
+            {/*  //////////// NAV ////////////  */}
+            <nav className={styles.nav}>
+
+                {/*  //////////// FILTRO POBLACION ////////////  */}
+                <div className={styles.sort}>
+                    <button className={styles.sort1} value = 'asc' onClick={e => handleSortName(e)}>A-Z</button>
+                    <button className={styles.sort1} value = 'desc' onClick={e => handleSortName(e)}>Z-A</button>
+                    <button className={styles.sort2} value = 'pop' onClick={e => handleSortPop(e)}>Population ↓</button>
+                    <button className={styles.sort2} value = 'popd' onClick={e => handleSortPop(e)}>Population ↑</button>
                 </div>
 
                 {/*  //////////// FILTRO CONTINENTE ////////////  */}
-                <div>
-                <select onChange={e => handleByContinent(e)}>
-                    <option value = "" selected disabled>Filtrar por continente</option>
-                    <option value = 'all'>Todos</option>
+                <div className={styles.filtro}>
+                <select className={styles.filtro1} onChange={e => handleByContinent(e)}>
+                    <option className={styles.opciones} value = "" selected disabled>Sort by Continent</option>
+                    <option value = 'all'>All</option>
                     <option value = 'Asia'>Asia</option>
                     <option value = 'Americas'>Americas</option>
                     <option value = 'Africa'>Africa</option>
@@ -105,22 +112,22 @@ export default function Home () {
                     <option value = 'Europe'>Europa</option>
                     <option value = 'Oceania'>Oceania</option>
                 </select>
-                </div>
 
                 {/*  //////////// FILTRO ACTIVIDADES ////////////  */}
-                <select onChange={e => handleByActivity(e)}>
-                        <option value='All' selected disabled>Filtrar por actividades</option>
+                <select className={styles.filtro2} onChange={e => handleByActivity(e)}>
+                        <option value='All' selected disabled>Sort by Activity</option>
                         {
                             activities?.map((e)=> {
                                 return (
                                     <option key={e.id} value={e.name}>{e.name}</option>
-                                )
-                            })}
+                                    )
+                                })}
                 </select>
+                </div>
             </nav>
 
                 {/*  //////////// PAISES ////////////  */}
-                <div>
+                <div className={styles.areapaises}>
                     {
                         currentCountry ? currentCountry.map((el) => {
                             return (
@@ -149,8 +156,8 @@ export default function Home () {
                 </div>
                 
                 {/*  //////////// PAGINADO ////////////  */}
-                <div>
-                <Paginado 
+                <div className={styles.paginado}>
+                <Paginado
                 countriesPerPage={countriesPerPage} 
                 allCountries={allCountries.length} 
                 paginado={paginado}/>

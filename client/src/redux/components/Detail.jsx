@@ -1,9 +1,9 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux';
 import { getDetails } from "../actions";
 import { useEffect } from "react";
+import styles from "./modules/detail.module.css"
 
 export default function GetDetailsCountry(props){
     const dispatch = useDispatch()
@@ -15,38 +15,38 @@ export default function GetDetailsCountry(props){
     const myCountry = useSelector((state) => state.detail)
 
     return (
-        <div>
+        <div className={styles.container}>
             {
                 myCountry ?
-                <div key={myCountry.id}>
-                    <img src={myCountry.flags} alt='country'/>
-                    <h1>{myCountry.name}</h1>
-                    <div>
-                        <div>
-                            <h4>Id: {myCountry.id}</h4>
-                            <h4>Continente: {myCountry.continents}</h4>
-                            <h4>Capital: {myCountry.capital}</h4>
-                            <h4>Subregion: {myCountry.subregion}</h4>
-                            <h4>Area: {myCountry.area}</h4>
-                            <h4>Población: {myCountry.population}</h4>
-                            <Link to= '/home' ><button>Volver</button></Link>
+                <div className={styles.container2} key={myCountry.id}>
+                    <Link to= '/home' ><button className={styles.boton}>Home 🚪</button></Link>
+                    <img className={styles.img} src={myCountry.flags} alt='country'/>
+                    <h1 className={styles.name}>{myCountry.name}</h1>
+                    <div className={styles.infoact}>
+                        <div className={styles.informacion}>
+                            <h4 className={styles.id}>Code: {myCountry.id}</h4>
+                            <h4 className={styles.continent}>Continent: {myCountry.continents}</h4>
+                            <h4 className={styles.capital}>Capital: {myCountry.capital}</h4>
+                            <h4 className={styles.subregion}>Subregion: {myCountry.subregion}</h4>
+                            <h4 className={styles.area}>Area: {myCountry.area} km²</h4>
+                            <h4 className={styles.poblacion}>Population: {myCountry.population}</h4>
                         </div> 
-                        <div>
-                            <h3>ACTIVIDADES DEL PAIS</h3>
+                            <h3 className={styles.titleactividades} >COUNTRY ACTIVITIES</h3>
+                        <div className={styles.contenedor}>
                             {
                                 myCountry.activities && myCountry.activities.length ?
                                 myCountry.activities.map(e => {
                                     return (
-                                            <div key={e.id}>
-                                                <h4>{e.name}</h4>
-                                                <p>Dificultad: {e.difficulty}</p>
-                                                <p>Duración: {e.duration} horas</p>
-                                                <p>Temporada: {e.season}</p>
+                                            <div className={styles.actividad} key={e.id}>
+                                                <h4 className={styles.aname}>{e.name}</h4>
+                                                <p className={styles.adificultad}>Difficulty: {e.difficulty}</p>
+                                                <p className={styles.aduracion}>Duration: {e.duration} horas</p>
+                                                <p className={styles.atemporada}>Season: {e.season}</p>
                                             </div>
                                             
                                         ) 
                                     }) 
-                                    : <p>No existen actividades en este país</p> 
+                                    : <p className={styles.p}>There are no activities in this country</p> 
                             }
                         </div>
                     </div>
@@ -56,7 +56,6 @@ export default function GetDetailsCountry(props){
                     <p>Loading...</p> 
                 </div>
             }
-            
         </div>
     )
 }

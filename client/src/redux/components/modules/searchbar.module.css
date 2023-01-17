@@ -1,0 +1,40 @@
+.container {
+    width: 20vw;
+    height: 4vh;
+}
+
+.input {
+    margin: 2px;
+    color: rgb(255, 255, 255);
+    background: rgb(138,142,97);
+    background: linear-gradient(180deg, rgba(138,142,97,1) 0%, rgba(233,233,233,1) 100%);
+    border-radius: 10px;
+    width: 50%;
+    height: 3.3vh;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.input::placeholder {
+    color: rgba(0, 0, 0, 0.514);
+    font-size: 130%;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.buton{
+    margin: 2px;
+    color: rgb(0, 0, 0);
+    background: rgb(138,142,97);
+    background: linear-gradient(180deg, rgba(138,142,97,1) 0%, rgba(233,233,233,1) 100%);
+    border-radius: 10px;
+    width: 20%;
+    height: 3.83vh;
+    border: 2px solid rgb(0, 0, 0);
+    font-size: 100%;
+}
+
+.buton:hover {
+    color: rgb(255, 255, 255);
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(233,233,233,1) 100%);
+    cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./modules/paginado.module.css"
 
 export default function Paginado({countriesPerPage, allCountries, paginado}) {
 
@@ -11,7 +12,7 @@ export default function Paginado({countriesPerPage, allCountries, paginado}) {
             { 
                 pageNumbers && 
                     pageNumbers.map(number => (
-                        <button key={number + Math.random} onClick={() => 
+                        <button className={styles.paginado} key={number + Math.random} onClick={() => 
                             paginado(number)}>{number}</button>
                 ))
             }
