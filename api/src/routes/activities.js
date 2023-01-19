@@ -18,14 +18,15 @@ router.get('/', async (req, res) => {
 
 //// RUTA PARA CREAR LAS ACTIVIDADES ////
 router.post('/', async (req, res) => {
-    const { name, difficulty, duration, season, countries } = req.body; // constasnte para pasar por body los datos de la actividad a crear
+    const { name, difficulty, duration, season, countries, coste } = req.body; // constasnte para pasar por body los datos de la actividad a crear
     try { // Si
         const createActivity = await Activity.create({ // Constante para crear la actividad en con el modelo Activity
             // Atributos necesarios
             name,
             difficulty,
             duration,
-            season
+            season,
+            coste
         });
 
         const findAcivity = await Country.findAll({ // Constante para guardar la busqueda en la db Country
