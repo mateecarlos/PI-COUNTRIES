@@ -10,7 +10,7 @@ export default function GetDetailsCountry(props){
     
     useEffect(() => {
         dispatch(getDetails(props.match.params.id))
-    }, [])
+    },[])
 
     const myCountry = useSelector((state) => state.detail)
 

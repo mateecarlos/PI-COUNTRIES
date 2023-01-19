@@ -12,8 +12,8 @@ export default function Home () { // Exporto la funcion Home()
 
     const dispatch = useDispatch(); // Creo la constante para el dispatch
     
-    const allCountries = useSelector((state) => state.countries) // Creo la constante para el useSelector  de countries
-    const activities = useSelector((state) => state.activities) // Creo la constante para el useSelector de activities
+    const allCountries = useSelector((state) => state.countries) // Creo la constante para el useSelector  de countries(mostrar info)
+    const activities = useSelector((state) => state.activities) // Creo la constante para el useSelector de activities (mostrar info)
 
     const [orden, setOrden] = useState('') // useState para el orden
 
