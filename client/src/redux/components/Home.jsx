@@ -8,70 +8,80 @@ import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
 import styles from "./modules/home.module.css"
 
-export default function Home () {
+export default function Home () { // Exporto la funcion Home()
 
-    const dispatch = useDispatch();
-    const allCountries = useSelector((state) => state.countries)
-    const activities = useSelector((state) => state.activities)
-    const [orden, setOrden] = useState('')
+    const dispatch = useDispatch(); // Creo la constante para el dispatch
+    
+    const allCountries = useSelector((state) => state.countries) // Creo la constante para el useSelector  de countries
+    const activities = useSelector((state) => state.activities) // Creo la constante para el useSelector de activities
+
+    const [orden, setOrden] = useState('') // useState para el orden
+
     const [currentPage, setCurrentPage] = useState(1) //La pagina empieza en la 1
-    const [countriesPerPage, setCountriesPerPage] = useState(10) //La pagina tiene 10 x Pagina
-    const indexOfLastCountry = currentPage * countriesPerPage // ultimo countri en 10 (1 x 10)
-    const indexOfFirstCountry =  indexOfLastCountry - countriesPerPage //// primer countri en 0 (10 - 10)
+    const [countriesPerPage, setCountriesPerPage] = useState(9) //La pagina tiene 10 x Pagina
+    const indexOfLastCountry = currentPage===1 ? currentPage * countriesPerPage : currentPage * countriesPerPage -1; // ultimo countri en 10 (1 x 10)
+    const indexOfFirstCountry =  indexOfLastCountry - countriesPerPage //// primer country en 0 (10 - 10)
     const currentCountry = allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber)
+        pageNumber === 1 ? setCountriesPerPage(9) : setCountriesPerPage(10)
     }
 
-    useEffect (() =>{
-        dispatch(getCountries())
-    },[dispatch])
+    // Funcion para dispachat la action que me trae los paises
+    useEffect (() =>{ // El primer valor es para definir el comportamiento de la funcion
+        dispatch(getCountries()) // Dispacha la action para obtener los paises
+    },[dispatch]) // como segundo valor le paso el dispatch para que cada vez que se actualice el state se ejecute el useEffect
 
-    useEffect(() => {
-        dispatch(getAllActivities())
-    },[dispatch])
+    // Funcion para dipachar la action que me trae las actividades
+    useEffect(() => { // El primer valor es para definir el comportamiento de la funcion
+        dispatch(getAllActivities()) // Dispacha la action para obtener las actividades
+    },[dispatch]) // como segundo valor le paso el dispatch para que cada vez que se actualice el state se ejecute el useEffect
 
-
-    function handleRecargar(e){
-        e.preventDefault();
-        dispatch(getCountries());
-        setCurrentPage(1)
+    // Funcion para recargar los paises y filtros
+    function handleRecargar(){  // Funcion para recargar
+        // e.preventDefault(); // Cancela si es cancelable
+        dispatch(getCountries()); // Dispacha la accion getCountries() para obtener todos los countries
+        setCurrentPage(1) // Seteo la pagina en la 1
+        setCountriesPerPage(9)
     }
 
-    function handleByContinent(e){
-        dispatch(getContinent(e.target.value))
-        setCurrentPage(1)
+    // Funcion para filtrar por continente
+    function handleByContinent(e){ // Funcion por continente
+        dispatch(getContinent(e.target.value)) // Dispacho la accion getContinent() para filtrar los paises por contienente pasado en el value
+        setCurrentPage(1) // Seteo la pagina en la 1
     }
 
-    function handleByActivity(e){
-        e.preventDefault();
-        dispatch(byActivity(e.target.value))
-        setCurrentPage(1)
+    // Funcion para filtrar por activity
+    function handleByActivity(e){ // Funcion por acitivity
+        e.preventDefault(); // Cancela si es cancelable
+        dispatch(byActivity(e.target.value)) // Dispacho la accion byActivity() para filtrar los paises por actividad pasada en el value
+        setCurrentPage(1) // Sereo la pagina en la 1
     }
 
-    function handleSortName(e){
-        e.preventDefault();
-        dispatch(orderByName(e.target.value))
-        setCurrentPage(1)
-        setOrden(`Orden ${e.target.value}`)
+    // Funcion para ordenar por Nombre
+    function handleSortName(e){ // Funcion por nombre
+        e.preventDefault(); // Cancela si es cancelable
+        dispatch(orderByName(e.target.value)) // Dispacho la accion orderByName() para ordenar los paises por nombre asc o desc
+        setCurrentPage(1) // Seteo la pagina en la 1 
+        setOrden(`Orden ${e.target.value}`) // Setea orden en el value
     }
 
-    function handleSortPop(e){
-        e.preventDefault();
-        dispatch(orderByPopulation(e.target.value))
-        setCurrentPage(1)
-        setOrden(`Orden ${e.target.value}`)
+    // Funcion para ordenar por poblacion
+    function handleSortPop(e){ // Funcion por poblacion
+        e.preventDefault(); // Cancela si es cancelable
+        dispatch(orderByPopulation(e.target.value)) // Dispacho la accion orderByPopulation() para ordenar los paises por poblacion asc o desc
+        setCurrentPage(1) // Seteo la pagina en la 1 
+        setOrden(`Orden ${e.target.value}`) // Setea orden en el value
     }
 
-    console.log(activities)
     return (
         <div className={styles.container}>
 
             {/*  //////////// TITULO Y RECARGAR ////////////  */}
                 <h1 className={styles.title}> COUNTRIES </h1>
             <div className={styles.primeros}>
-                <button className={styles.recargar} onClick={e => {handleRecargar(e)}}>
+                <button className={styles.recargar} onClick= {() => handleRecargar()}>
                     Reload Countries
                 </button>
 
@@ -159,7 +169,7 @@ export default function Home () {
                 <div className={styles.paginado}>
                 <Paginado
                 countriesPerPage={countriesPerPage} 
-                allCountries={allCountries.length} 
+                allCountries={allCountries} 
                 paginado={paginado}/>
                 </div>
         </div>

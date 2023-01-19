@@ -6,52 +6,38 @@ const { Activity, Country } = require('../db');
 
 //// RUTA PARA TRAER TODAS LAS ACTIVIDADES CREADAS/////
 router.get('/', async (req, res) => {
-    try {
-        const getAllActivities = await Activity.findAll({
-            inlude: Country,
+    try { // Si encuentro
+        const getAllActivities = await Activity.findAll({ // Creo constante para guardar todas las actividades encontradas en el modelo de la db
+            inlude: Country, // que inluyan modelo Country
         })
-        // if(getAllActivities.length) {
-        //     getAllActivities = getAllActivities.map((e) => {
-        //         return {
-        //             id: e.id,
-        //             name: e.name,
-        //             difficulty: e.difficulty,
-        //             duration: e.duration,
-        //             season: e.season,
-        //             countries: e.countries.length? e.countries.map((e) => {
-        //                 e.name
-        //             }) : "No se encontro el pais"
-        //         }
-        //     })
-        // }
-        res.status(200).send(getAllActivities);
-    } catch(error) {
-        res.status(404).send("No se encontraron activdades");
+        res.status(200).send(getAllActivities); // Si encuentro retorno todas las actividaddes
+    } catch(error) { // Sino encuentro
+        res.status(404).send("No se encontraron activdades"); // Retorno error
     }
 })
 
 //// RUTA PARA CREAR LAS ACTIVIDADES ////
 router.post('/', async (req, res) => {
-    const { name, difficulty, duration, season, countries } = req.body;
-    console.log(req.body)
-    try {
-        const createActivity = await Activity.create({
+    const { name, difficulty, duration, season, countries } = req.body; // constasnte para pasar por body los datos de la actividad a crear
+    try { // Si
+        const createActivity = await Activity.create({ // Constante para crear la actividad en con el modelo Activity
+            // Atributos necesarios
             name,
             difficulty,
             duration,
             season
         });
 
-        const findAcivity = await Country.findAll({
-            where: {
+        const findAcivity = await Country.findAll({ // Constante para guardar la busqueda en la db Country
+            where: { // Donde el id sea countries
                 id: countries,
             }
         });
 
-        const resultado = createActivity.addCountries(findAcivity);
-        res.status(200).send(resultado)
-    } catch(error) {
-        res.status(404).send("Los datos son incorrectos")
+        const resultado = createActivity.addCountries(findAcivity); // A la actividad creada le agrego el pais 
+        res.status(200).send(resultado) // Devuelvo el la actividad creada
+    } catch(error) { // Sino
+        res.status(404).send("Los datos son incorrectos") // Retorno el error
     }
 })
 
