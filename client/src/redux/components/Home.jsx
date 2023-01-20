@@ -18,14 +18,15 @@ export default function Home () { // Exporto la funcion Home()
     const [orden, setOrden] = useState('') // useState para el orden
 
     const [currentPage, setCurrentPage] = useState(1) //La pagina empieza en la 1
-    const [countriesPerPage, setCountriesPerPage] = useState(9) //La pagina tiene 10 x Pagina
-    const indexOfLastCountry = currentPage===1 ? currentPage * countriesPerPage : currentPage * countriesPerPage -1; // ultimo countri en 10 (1 x 10)
+    const [countriesPerPage, setCountriesPerPage] = useState(10) //La pagina tiene 10 x Pagina
+    // const indexOfLastCountry = currentPage===1 ? currentPage * countriesPerPage : currentPage * countriesPerPage -1; // ultimo countri en 10 (1 x 10)
+    const indexOfLastCountry = currentPage * countriesPerPage // ultimo countri en 10 (1 x 10)
     const indexOfFirstCountry =  indexOfLastCountry - countriesPerPage //// primer country en 0 (10 - 10)
     const currentCountry = allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
 
     const paginado = (pageNumber) => {
         setCurrentPage(pageNumber)
-        pageNumber === 1 ? setCountriesPerPage(9) : setCountriesPerPage(10)
+        // pageNumber === 1 ? setCountriesPerPage(9) : setCountriesPerPage(10)
     }
 
     // Funcion para dispachat la action que me trae los paises
@@ -43,7 +44,7 @@ export default function Home () { // Exporto la funcion Home()
         // e.preventDefault(); // Cancela si es cancelable
         dispatch(getCountries()); // Dispacha la accion getCountries() para obtener todos los countries
         setCurrentPage(1) // Seteo la pagina en la 1
-        setCountriesPerPage(9)
+        setCountriesPerPage(10)
     }
 
     // Funcion para filtrar por continente
@@ -169,7 +170,7 @@ export default function Home () { // Exporto la funcion Home()
                 <div className={styles.paginado}>
                 <Paginado
                 countriesPerPage={countriesPerPage} 
-                allCountries={allCountries} 
+                allCountries={allCountries.length} 
                 paginado={paginado}/>
                 </div>
         </div>
