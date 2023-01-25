@@ -3,13 +3,16 @@ import styles from "./modules/paginado.module.css"
 
 export default function Paginado({countriesPerPage, allCountries, paginado, currentPage}) {
 
-    let pagina = Math.ceil(currentPage===1 ? (allCountries.length - countriesPerPage)/countriesPerPage -1 : allCountries.length/countriesPerPage
-    + 0.1);
+    // let pagina = Math.ceil(currentPage===1 ? (allCountries.length - countriesPerPage)/countriesPerPage -1 : allCountries.length/countriesPerPage
+    // + 0.1);
     const pageNumbers = [];
 
-    for (let i = 1; i <= pagina; i++) {        
+    for (let i = 1; i <= Math.ceil(allCountries/countriesPerPage); i++) {        
         pageNumbers.push(i)        
     }
+    // for (let i = 1; i <= pagina; i++) {        
+    //     pageNumbers.push(i)        
+    // }
 
     return (
         <>
